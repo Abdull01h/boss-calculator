@@ -1,84 +1,62 @@
-const PASS="abdullah-mafia-1880";
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* HIDDEN CLASS */
+.hidden{display:none;}
 
 /* LOADING */
-setTimeout(()=>{
- document.getElementById("loading").style.display="none";
- document.getElementById("loginPage").classList.remove("hidden");
-},3000);
+#loading{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  background:#000;
+}
+.spinner{
+  width:50px; height:50px;
+  border:6px solid #222;
+  border-top:6px solid cyan;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* LOGIN */
-function login(){
- let p=document.getElementById("password").value;
- if(p===PASS){
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
- }else{
-  document.getElementById("error").innerText="Wrong Password";
- }
+/* LOGIN PAGE */
+#loginPage, #app{
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
 }
+#loginPage span{color:cyan;font-weight:bold;}
+input{
+  width:80%; padding:12px; margin:10px 0;
+  border:none; border-radius:6px; background:#020617; color:white;
+}
+button{
+  padding:12px; margin:5px; border:none; border-radius:6px; cursor:pointer;
+}
+button:hover{opacity:0.8;}
+.num{background:#334155;}
+.op{background:gold;color:black;}
+.eq{background:green; color:white;}
 
-function logout(){
- document.getElementById("app").classList.add("hidden");
- document.getElementById("loginPage").classList.remove("hidden");
-}
+/* APP HEADER */
+header{text-align:center; margin-bottom:10px;}
+header span{color:cyan;}
+.lock{position:absolute; top:10px; right:10px; background:none; color:white; font-size:20px; border:none;}
 
-/* SECTION SWITCH */
-function showCalc(id){
- document.querySelectorAll(".calc").forEach(c=>c.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
-}
+/* NAV */
+nav{display:flex; justify-content:space-around; margin-bottom:10px;}
+nav button{flex:1; margin:2px; background:#1e293b; color:white;}
 
-/* NORMAL */
-let display=document.getElementById("display");
-function press(v){display.value+=v;}
-function clearDisplay(){display.value="";}
-function calc(){
- try{display.value=eval(display.value);}
- catch{display.value="Error";}
-}
+/* CALC SECTIONS */
+.calc{width:90%; max-width:400px; padding:10px;}
+.calc input{width:100%; margin-bottom:10px;}
+.grid{display:grid; grid-template-columns:repeat(4,1fr); gap:5px;}
 
-/* SCIENTIFIC */
-let sciDisplay=document.getElementById("sciDisplay");
-function sci(op){
- if(op==="pi") sciDisplay.value+=Math.PI;
- else if(op==="e") sciDisplay.value+=Math.E;
- else sciDisplay.value+=op+"(";
-}
-function calcSci(){
- try{
-  let v=sciDisplay.value
-   .replace("sin","Math.sin")
-   .replace("cos","Math.cos")
-   .replace("tan","Math.tan")
-   .replace("sqrt","Math.sqrt")
-   .replace("log","Math.log")
-   .replace("pow","Math.pow");
-  sciDisplay.value=eval(v);
- }catch{ sciDisplay.value="Error"; }
-}
-function clearSci(){sciDisplay.value="";}
-
-/* AGE */
-function calcAge(){
- let dob=document.getElementById("dob").value.split("-");
- let d=new Date(dob[2],dob[1]-1,dob[0]);
- let diff=Date.now()-d;
- let age=new Date(diff).getUTCFullYear()-1970;
- document.getElementById("ageResult").innerText="Age: "+age;
-}
-
-/* ZAKAT */
-function calcZakat(){
- let m=+document.getElementById("money").value;
- let z=m*0.025;
- document.getElementById("zakatResult").innerText="Zakat: "+z;
-}
-
-/* SUN / MOON (basic) */
-function sunMoon(){
- let d=new Date(document.getElementById("date").value);
- let day=d.getDate();
- let phase=(day%29);
- document.getElementById("sunMoonResult").innerText=
-  "Moon Age: "+phase+" days\nSunrise ~ 6:00 AM\nSunset ~ 6:00 PM";
-}
+/* FOOTER */
+footer{margin-top:20px; color:#999; text-align:center;}
