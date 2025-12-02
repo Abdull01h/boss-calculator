@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<title>Boss Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+    <div class="loginBox">
+        <h1>Boss Calculator</h1>
+        <small>Develop by <span>RJ Abdullah</span></small>
+        <input type="password" id="pass" placeholder="Enter Password">
+        <button onclick="unlock()">Unlock</button>
+        <p id="msg"></p>
+        <p class="copy">© 2025 RJ Abdullah</p>
+    </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+<header>
+    <h2>Boss Calculator</h2>
+    <small>Develop by <span>RJ Abdullah</span></small>
+    <button onclick="lock()" class="lock">🔒</button>
+</header>
+
+<div class="menu">
+    <button onclick="openPage('normal')">Calculator</button>
+    <button onclick="openPage('scientific')">Scientific</button>
+    <button onclick="openPage('zakat')">Zakat</button>
+    <button onclick="openPage('age')">Age</button>
+    <button onclick="openPage('sunmoon')">Sun & Moon</button>
+</div>
+
+<!-- NORMAL -->
+<div id="normal" class="page active">
+<input id="screen" readonly>
+<div class="pad">
+<button class="num" onclick="add('7')">7</button>
+<button class="num" onclick="add('8')">8</button>
+<button class="num" onclick="add('9')">9</button>
+<button class="op" onclick="add('/')">/</button>
+<button class="num" onclick="add('4')">4</button>
+<button class="num" onclick="add('5')">5</button>
+<button class="num" onclick="add('6')">6</button>
+<button class="op" onclick="add('*')">*</button>
+<button class="num" onclick="add('1')">1</button>
+<button class="num" onclick="add('2')">2</button>
+<button class="num" onclick="add('3')">3</button>
+<button class="op" onclick="add('-')">-</button>
+<button class="num" onclick="add('0')">0</button>
+<button onclick="clearAll()">C</button>
+<button class="eq" onclick="calc()">=</button>
+<button class="op" onclick="add('+')">+</button>
+</div>
+</div>
+
+<!-- SCIENTIFIC -->
+<div id="scientific" class="page">
+<input id="sview" readonly>
+<div class="pad">
+<button onclick="sin()">sin</button>
+<button onclick="cos()">cos</button>
+<button onclick="tan()">tan</button>
+<button onclick="sqrt()">√</button>
+<button onclick="pow()">xʸ</button>
+<button onclick="pi()">π</button>
+<button onclick="e()">e</button>
+<button onclick="fact()">n!</button>
+<button onclick="sadd('1')">1</button>
+<button onclick="sadd('2')">2</button>
+<button onclick="sadd('3')">3</button>
+<button onclick="sadd('+')">+</button>
+<button onclick="clearSci()">C</button>
+<button onclick="equal()">=</button>
+</div>
+</div>
+
+<!-- ZAKAT -->
+<div id="zakat" class="page">
+<h3>Zakat Calculator</h3>
+<input id="zmoney" placeholder="Enter Amount">
+<button onclick="zakat()">Calculate</button>
+<p id="zout"></p>
+</div>
+
+<!-- AGE -->
+<div id="age" class="page">
+<h3>Age Calculator</h3>
+<input id="birth" placeholder="DD-MM-YYYY">
+<button onclick="age()">Calculate</button>
+<p id="aout"></p>
+</div>
+
+<!-- SUN MOON -->
+<div id="sunmoon" class="page">
+<h3>Sun / Moon Calculator</h3>
+<input id="lat" placeholder="Latitude">
+<input id="lon" placeholder="Longitude">
+<button onclick="sunmoon()">Calculate</button>
+<p id="sout"></p>
+</div>
+
+<footer>© 2025 RJ Abdullah</footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
