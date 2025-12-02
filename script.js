@@ -1,72 +1,76 @@
-// LOADING
-setTimeout(()=>{
-document.getElementById("loading").style.display="none";
-document.getElementById("login").style.display="flex";
-},3000);
-
-// LOGIN
-function unlock(){
-if(pass.value==="abdullah-mafia-1880"){
-login.style.display="none";
-app.style.display="block";
-}else msg.innerText="Wrong Password!";
-}
-function lock(){
-app.style.display="none";
-login.style.display="flex";
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#0a0a0a;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-// MENU
-function openPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+.hidden{display:none;}
+
+#loading{
+  position:fixed; inset:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
-// NORMAL
-function add(x){screen.value+=x}
-function clearAll(){screen.value=""}
-function calc(){screen.value=eval(screen.value)}
-
-// SCIENTIFIC
-function sadd(x){sview.value+=x}
-function clearSci(){sview.value=""}
-function equal(){sview.value=eval(sview.value)}
-function sin(){sview.value=Math.sin(sview.value)}
-function cos(){sview.value=Math.cos(sview.value)}
-function tan(){sview.value=Math.tan(sview.value)}
-function sqrt(){sview.value=Math.sqrt(sview.value)}
-function pi(){sview.value=Math.PI}
-function e(){sview.value=Math.E}
-function pow(){
-let a=prompt("Base");let b=prompt("Power");
-sview.value=Math.pow(a,b);
-}
-function fact(){
-let n=sview.value,f=1;
-for(i=1;i<=n;i++)f*=i;
-sview.value=f;
+.loader{
+  border:6px solid #222;
+  border-top:6px solid cyan;
+  width:60px;height:60px;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
 }
 
-// ZAKAT
-function zakat(){
-let m=zmoney.value;
-zout.innerText="Zakat = "+(m*0.025).toFixed(2);
+@keyframes spin{to{transform:rotate(360deg)}}
+
+#loginPage{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
-// AGE
-function age(){
-let d=birth.value.split("-");
-let dob=new Date(d[2],d[1]-1,d[0]);
-let a=new Date(Date.now()-dob);
-aout.innerText="Age: "+(a.getUTCFullYear()-1970);
+.dev span{color:cyan;font-weight:bold;}
+footer{margin-top:20px;color:#999;}
+
+header{
+  text-align:center;
+}
+header span{color:cyan;}
+nav{
+  display:flex;
+  justify-content:space-around;
+  margin:10px 0;
+}
+nav button{padding:5px;}
+
+.calc{
+  padding:10px;
 }
 
-// SUN MOON (demo)
-function sunmoon(){
-let la=lat.value, lo=lon.value;
-sout.innerText=
-"Sunrise: 05:15 AM\n"+
-"Sunset: 06:30 PM\n"+
-"Moon Phase: Waxing Gibbous\n"+
-"Lat:"+la+" | Lon:"+lo;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+}
+
+.num{background:#333;}
+.op{background:gold;}
+.eq{background:green;}
+
+button{
+  padding:15px;
+  border:none;
+  color:white;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
 }
