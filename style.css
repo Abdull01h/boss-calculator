@@ -6,7 +6,7 @@ body{
   overflow-x:hidden;
 }
 
-/* HIDDEN CLASS */
+/* HIDDEN */
 .hidden{display:none;}
 
 /* LOADING */
@@ -25,7 +25,7 @@ body{
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* LOGIN PAGE */
+/* LOGIN */
 #loginPage, #app{
   min-height:100vh;
   display:flex; flex-direction:column;
@@ -45,17 +45,17 @@ button:hover{opacity:0.8;}
 .eq{background:green; color:white;}
 
 /* APP HEADER */
-header{text-align:center; margin-bottom:10px;}
+header{text-align:center; margin-bottom:10px; position:relative;}
 header span{color:cyan;}
 .lock{position:absolute; top:10px; right:10px; background:none; color:white; font-size:20px; border:none;}
 
 /* NAV */
-nav{display:flex; justify-content:space-around; margin-bottom:10px;}
+nav{display:flex; justify-content:space-around; margin-bottom:10px; flex-wrap:wrap;}
 nav button{flex:1; margin:2px; background:#1e293b; color:white;}
 
 /* CALC SECTIONS */
 .calc{width:90%; max-width:400px; padding:10px;}
-.calc input{width:100%; margin-bottom:10px;}
+.calc input{width:100%; margin-bottom:10px; text-align:right; font-size:18px;}
 .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:5px;}
 
 /* FOOTER */
