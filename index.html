@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 <title>Boss Calculator</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -10,14 +10,14 @@
 
 <!-- LOADING -->
 <div id="loading">
-  <div class="loader"></div>
+  <div class="spinner"></div>
   <p>Loading Boss Calculator...</p>
 </div>
 
 <!-- LOGIN -->
 <div id="loginPage" class="hidden">
   <h1>Boss Calculator</h1>
-  <p class="dev">Developed by <span>RJ Abdullah</span></p>
+  <small>Develop by <span>RJ Abdullah</span></small>
   <input type="password" id="password" placeholder="Enter Password">
   <button onclick="login()">Unlock</button>
   <p id="error"></p>
@@ -26,25 +26,23 @@
 
 <!-- MAIN APP -->
 <div id="app" class="hidden">
-
 <header>
   <h2>Boss Calculator</h2>
-  <small>Developed by <span>RJ Abdullah</span></small>
-  <button onclick="logout()">Lock</button>
+  <small>Develop by <span>RJ Abdullah</span></small>
+  <button onclick="logout()" class="lock">🔒</button>
 </header>
 
-<!-- NAV -->
 <nav>
-  <button onclick="showCalc('normal')">Normal</button>
+  <button onclick="showCalc('normal')">Calculator</button>
   <button onclick="showCalc('scientific')">Scientific</button>
   <button onclick="showCalc('age')">Age</button>
   <button onclick="showCalc('zakat')">Zakat</button>
-  <button onclick="showCalc('sunmoon')">Sun / Moon</button>
+  <button onclick="showCalc('sunmoon')">Sun & Moon</button>
 </nav>
 
 <!-- NORMAL -->
-<section id="normal" class="calc">
-  <input id="display" readonly>
+<section id="normal" class="calc active">
+  <input id="display" readonly placeholder="0">
   <div class="grid">
     <button class="num" onclick="press('7')">7</button>
     <button class="num" onclick="press('8')">8</button>
@@ -67,7 +65,7 @@
 
 <!-- SCIENTIFIC -->
 <section id="scientific" class="calc hidden">
-  <input id="sciDisplay">
+  <input id="sciDisplay" placeholder="Scientific Calculator">
   <div class="grid">
     <button onclick="sci('sin')">sin</button>
     <button onclick="sci('cos')">cos</button>
@@ -77,7 +75,7 @@
     <button onclick="sci('pow')">xʸ</button>
     <button onclick="sci('pi')">π</button>
     <button onclick="sci('e')">e</button>
-    <button onclick="calcSci()">=</button>
+    <button onclick="calcSci()" class="eq">=</button>
     <button onclick="clearSci()">C</button>
   </div>
 </section>
@@ -85,14 +83,14 @@
 <!-- AGE -->
 <section id="age" class="calc hidden">
   <input id="dob" placeholder="DD-MM-YYYY">
-  <button onclick="calcAge()">Calculate</button>
+  <button onclick="calcAge()">Calculate Age</button>
   <p id="ageResult"></p>
 </section>
 
 <!-- ZAKAT -->
 <section id="zakat" class="calc hidden">
-  <input id="money" placeholder="Total Amount">
-  <button onclick="calcZakat()">Calculate</button>
+  <input id="money" placeholder="Enter Amount">
+  <button onclick="calcZakat()">Calculate Zakat</button>
   <p id="zakatResult"></p>
 </section>
 
@@ -103,8 +101,8 @@
   <p id="sunMoonResult"></p>
 </section>
 
-</div>
-
+<footer>© 2025 RJ Abdullah</footer>
 <script src="script.js"></script>
+</div>
 </body>
 </html>
