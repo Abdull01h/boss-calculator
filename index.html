@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-<title>Boss Calculator</title>
+<title>Boss Calculator Pro</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,10 +14,10 @@
   <p>Loading Boss Calculator...</p>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN PAGE -->
 <div id="loginPage" class="hidden">
   <h1>Boss Calculator</h1>
-  <small>Develop by <span>RJ Abdullah</span></small>
+  <small>Developed by <span>RJ Abdullah</span></small>
   <input type="password" id="password" placeholder="Enter Password">
   <button onclick="login()">Unlock</button>
   <p id="error"></p>
@@ -28,7 +28,7 @@
 <div id="app" class="hidden">
 <header>
   <h2>Boss Calculator</h2>
-  <small>Develop by <span>RJ Abdullah</span></small>
+  <small>Developed by <span>RJ Abdullah</span></small>
   <button onclick="logout()" class="lock">🔒</button>
 </header>
 
@@ -37,10 +37,10 @@
   <button onclick="showCalc('scientific')">Scientific</button>
   <button onclick="showCalc('age')">Age</button>
   <button onclick="showCalc('zakat')">Zakat</button>
-  <button onclick="showCalc('sunmoon')">Sun & Moon</button>
+  <button onclick="showCalc('sunmoon')">Sun / Moon</button>
 </nav>
 
-<!-- NORMAL -->
+<!-- NORMAL CALCULATOR -->
 <section id="normal" class="calc active">
   <input id="display" readonly placeholder="0">
   <div class="grid">
@@ -63,7 +63,7 @@
   </div>
 </section>
 
-<!-- SCIENTIFIC -->
+<!-- SCIENTIFIC CALCULATOR -->
 <section id="scientific" class="calc hidden">
   <input id="sciDisplay" placeholder="Scientific Calculator">
   <div class="grid">
@@ -80,14 +80,14 @@
   </div>
 </section>
 
-<!-- AGE -->
+<!-- AGE CALCULATOR -->
 <section id="age" class="calc hidden">
   <input id="dob" placeholder="DD-MM-YYYY">
   <button onclick="calcAge()">Calculate Age</button>
   <p id="ageResult"></p>
 </section>
 
-<!-- ZAKAT -->
+<!-- ZAKAT CALCULATOR -->
 <section id="zakat" class="calc hidden">
   <input id="money" placeholder="Enter Amount">
   <button onclick="calcZakat()">Calculate Zakat</button>
