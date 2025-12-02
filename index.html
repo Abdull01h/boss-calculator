@@ -4,7 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 <title>Boss Calculator Pro</title>
-<link rel="stylesheet" href="style.css">
+<style>
+/* ===== Body & General ===== */
+body{
+  margin:0; font-family:sans-serif; background:#0f172a; color:white; overflow-x:hidden;
+}
+.hidden{display:none;}
+
+/* ===== Loading ===== */
+#loading{
+  position:fixed; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#000;
+}
+.spinner{
+  width:50px; height:50px; border:6px solid #222; border-top:6px solid cyan; border-radius:50%; animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ===== Login Page ===== */
+#loginPage, #app{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+}
+#loginPage span, header span{color:cyan; font-weight:bold;}
+input{
+  width:80%; padding:12px; margin:10px 0; border:none; border-radius:6px; background:#020617; color:white;
+}
+button{
+  padding:12px; margin:5px; border:none; border-radius:6px; cursor:pointer;
+}
+button:hover{opacity:0.8;}
+.num{background:#334155;}
+.op{background:gold;color:black;}
+.eq{background:green;color:white;}
+
+/* ===== Header ===== */
+header{text-align:center; margin-bottom:10px; position:relative;}
+.lock{position:absolute; top:10px; right:10px; background:none; color:white; font-size:20px; border:none;}
+
+/* ===== Navigation ===== */
+nav{display:flex; justify-content:space-around; margin-bottom:10px; flex-wrap:wrap;}
+nav button{flex:1; margin:2px; background:#1e293b; color:white;}
+
+/* ===== Calculator Sections ===== */
+.calc{width:90%; max-width:400px; padding:10px;}
+.calc input{width:100%; margin-bottom:10px; text-align:right; font-size:18px;}
+.grid{display:grid; grid-template-columns:repeat(4,1fr); gap:5px;}
+
+/* ===== Footer ===== */
+footer{margin-top:20px; color:#999; text-align:center;}
+</style>
 </head>
 <body>
 
@@ -19,8 +66,8 @@
   <h1>Boss Calculator</h1>
   <small>Developed by <span>RJ Abdullah</span></small>
   <input type="password" id="password" placeholder="Enter Password">
-  <button onclick="login()">Unlock</button>
-  <p id="error"></p>
+  <button id="loginBtn">Unlock</button>
+  <p id="error" style="color:red;"></p>
   <footer>© 2025 RJ Abdullah</footer>
 </div>
 
@@ -29,37 +76,37 @@
 <header>
   <h2>Boss Calculator</h2>
   <small>Developed by <span>RJ Abdullah</span></small>
-  <button onclick="logout()" class="lock">🔒</button>
+  <button class="lock" id="logoutBtn">🔒</button>
 </header>
 
 <nav>
-  <button onclick="showCalc('normal')">Calculator</button>
-  <button onclick="showCalc('scientific')">Scientific</button>
-  <button onclick="showCalc('age')">Age</button>
-  <button onclick="showCalc('zakat')">Zakat</button>
-  <button onclick="showCalc('sunmoon')">Sun / Moon</button>
+  <button data-calc="normal">Calculator</button>
+  <button data-calc="scientific">Scientific</button>
+  <button data-calc="age">Age</button>
+  <button data-calc="zakat">Zakat</button>
+  <button data-calc="sunmoon">Sun / Moon</button>
 </nav>
 
 <!-- NORMAL CALCULATOR -->
-<section id="normal" class="calc active">
+<section id="normal" class="calc">
   <input id="display" readonly placeholder="0">
   <div class="grid">
-    <button class="num" onclick="press('7')">7</button>
-    <button class="num" onclick="press('8')">8</button>
-    <button class="num" onclick="press('9')">9</button>
-    <button class="op" onclick="press('/')">/</button>
-    <button class="num" onclick="press('4')">4</button>
-    <button class="num" onclick="press('5')">5</button>
-    <button class="num" onclick="press('6')">6</button>
-    <button class="op" onclick="press('*')">*</button>
-    <button class="num" onclick="press('1')">1</button>
-    <button class="num" onclick="press('2')">2</button>
-    <button class="num" onclick="press('3')">3</button>
-    <button class="op" onclick="press('-')">-</button>
-    <button class="num" onclick="press('0')">0</button>
-    <button onclick="clearDisplay()">C</button>
-    <button class="eq" onclick="calc()">=</button>
-    <button class="op" onclick="press('+')">+</button>
+    <button class="num">7</button>
+    <button class="num">8</button>
+    <button class="num">9</button>
+    <button class="op">/</button>
+    <button class="num">4</button>
+    <button class="num">5</button>
+    <button class="num">6</button>
+    <button class="op">*</button>
+    <button class="num">1</button>
+    <button class="num">2</button>
+    <button class="num">3</button>
+    <button class="op">-</button>
+    <button class="num">0</button>
+    <button id="clear">C</button>
+    <button id="equals" class="eq">=</button>
+    <button class="op">+</button>
   </div>
 </section>
 
@@ -67,42 +114,149 @@
 <section id="scientific" class="calc hidden">
   <input id="sciDisplay" placeholder="Scientific Calculator">
   <div class="grid">
-    <button onclick="sci('sin')">sin</button>
-    <button onclick="sci('cos')">cos</button>
-    <button onclick="sci('tan')">tan</button>
-    <button onclick="sci('sqrt')">√</button>
-    <button onclick="sci('log')">log</button>
-    <button onclick="sci('pow')">xʸ</button>
-    <button onclick="sci('pi')">π</button>
-    <button onclick="sci('e')">e</button>
-    <button onclick="calcSci()" class="eq">=</button>
-    <button onclick="clearSci()">C</button>
+    <button data-func="sin">sin</button>
+    <button data-func="cos">cos</button>
+    <button data-func="tan">tan</button>
+    <button data-func="sqrt">√</button>
+    <button data-func="log">log</button>
+    <button data-func="pow">xʸ</button>
+    <button data-func="pi">π</button>
+    <button data-func="e">e</button>
+    <button id="sciEquals" class="eq">=</button>
+    <button id="sciClear">C</button>
   </div>
 </section>
 
 <!-- AGE CALCULATOR -->
 <section id="age" class="calc hidden">
   <input id="dob" placeholder="DD-MM-YYYY">
-  <button onclick="calcAge()">Calculate Age</button>
+  <button id="ageBtn">Calculate Age</button>
   <p id="ageResult"></p>
 </section>
 
 <!-- ZAKAT CALCULATOR -->
 <section id="zakat" class="calc hidden">
   <input id="money" placeholder="Enter Amount">
-  <button onclick="calcZakat()">Calculate Zakat</button>
+  <button id="zakatBtn">Calculate Zakat</button>
   <p id="zakatResult"></p>
 </section>
 
 <!-- SUN / MOON -->
 <section id="sunmoon" class="calc hidden">
   <input id="date" type="date">
-  <button onclick="sunMoon()">Calculate</button>
+  <button id="sunmoonBtn">Calculate</button>
   <p id="sunMoonResult"></p>
 </section>
 
 <footer>© 2025 RJ Abdullah</footer>
-<script src="script.js"></script>
-</div>
+
+<script>
+// ===== DOM Loaded =====
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const PASS = "abdullah-mafia-1880";
+  const loginPage = document.getElementById("loginPage");
+  const app = document.getElementById("app");
+  const passwordInput = document.getElementById("password");
+  const error = document.getElementById("error");
+
+  const loginBtn = document.getElementById("loginBtn");
+  loginBtn.addEventListener("click", ()=>{
+    if(passwordInput.value.trim() === PASS){
+      loginPage.classList.add("hidden");
+      app.classList.remove("hidden");
+      error.innerText = "";
+      passwordInput.value = "";
+    } else {
+      error.innerText = "Wrong Password!";
+    }
+  });
+
+  passwordInput.addEventListener("keyup",(e)=>{
+    if(e.key === "Enter") loginBtn.click();
+  });
+
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn.addEventListener("click", ()=>{
+    app.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+  });
+
+  // ===== Navigation =====
+  document.querySelectorAll("nav button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const id = btn.dataset.calc;
+      document.querySelectorAll(".calc").forEach(s=>s.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
+    });
+  });
+
+  // ===== Normal Calculator =====
+  const display = document.getElementById("display");
+  document.querySelectorAll("#normal .num").forEach(btn=>{
+    btn.addEventListener("click", ()=> display.value += btn.innerText);
+  });
+  document.querySelectorAll("#normal .op").forEach(btn=>{
+    btn.addEventListener("click", ()=> display.value += btn.innerText);
+  });
+  document.getElementById("clear").addEventListener("click", ()=> display.value="");
+  document.getElementById("equals").addEventListener("click", ()=>{
+    try{ display.value = eval(display.value); }catch{ display.value="Error"; }
+  });
+
+  // ===== Scientific =====
+  const sciDisplay = document.getElementById("sciDisplay");
+  document.querySelectorAll("#scientific button[data-func]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const f = btn.dataset.func;
+      if(f==="pi") sciDisplay.value+=Math.PI;
+      else if(f==="e") sciDisplay.value+=Math.E;
+      else if(f==="pow") sciDisplay.value+="Math.pow(";
+      else sciDisplay.value+="Math."+f+"(";
+    });
+  });
+  document.getElementById("sciClear").addEventListener("click", ()=> sciDisplay.value="");
+  document.getElementById("sciEquals").addEventListener("click", ()=>{
+    try{ sciDisplay.value = eval(sciDisplay.value); }catch{ sciDisplay.value="Error"; }
+  });
+
+  // ===== Age =====
+  document.getElementById("ageBtn").addEventListener("click", ()=>{
+    const dob = document.getElementById("dob").value.split("-");
+    if(dob.length!==3){ document.getElementById("ageResult").innerText="Invalid format"; return; }
+    const birth = new Date(dob[2], dob[1]-1, dob[0]);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if(m<0 || (m===0 && today.getDate()<birth.getDate())) age--;
+    document.getElementById("ageResult").innerText = "Age: "+age+" Years";
+  });
+
+  // ===== Zakat =====
+  document.getElementById("zakatBtn").addEventListener("click", ()=>{
+    const amt = parseFloat(document.getElementById("money").value);
+    if(isNaN(amt)) document.getElementById("zakatResult").innerText="Enter Amount";
+    else document.getElementById("zakatResult").innerText="Zakat: "+((amt*2.5)/100);
+  });
+
+  // ===== Sun / Moon =====
+  document.getElementById("sunmoonBtn").addEventListener("click", ()=>{
+    const dateStr = document.getElementById("date").value;
+    if(!dateStr){ document.getElementById("sunMoonResult").innerText="Select Date"; return; }
+    const date = new Date(dateStr);
+    const moonAge = date.getDate()%29;
+    document.getElementById("sunMoonResult").innerText=
+      `Moon Age: ${moonAge} days\nSunrise: 06:00 AM\nSunset: 06:00 PM`;
+  });
+
+  // ===== Loading =====
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    loginPage.classList.remove("hidden");
+  },3000);
+
+});
+</script>
+
 </body>
 </html>
