@@ -1,8 +1,8 @@
 const PASS="abdullah-mafia-1880";
 
-/* LOADING */
 document.addEventListener("DOMContentLoaded",()=>{
 
+/* LOADING */
 setTimeout(()=>{
 document.getElementById("loading").style.display="none";
 document.getElementById("loginPage").classList.remove("hidden");
@@ -24,7 +24,7 @@ document.getElementById("app").classList.add("hidden");
 document.getElementById("loginPage").classList.remove("hidden");
 };
 
-/* SWITCH SECTION */
+/* SWITCH SECTIONS */
 window.showCalc=function(id){
 document.querySelectorAll(".calc").forEach(c=>c.classList.add("hidden"));
 document.getElementById(id).classList.remove("hidden");
@@ -34,9 +34,7 @@ document.getElementById(id).classList.remove("hidden");
 let display=document.getElementById("display");
 window.press=v=>display.value+=v;
 window.clearDisplay=()=>display.value="";
-window.calc=()=>{
-try{display.value=eval(display.value);}catch{display.value="Error";}
-};
+window.calc=()=>{try{display.value=eval(display.value);}catch{display.value="Error";}};
 
 /* SCIENTIFIC */
 let sciDisplay=document.getElementById("sciDisplay");
