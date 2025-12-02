@@ -1,0 +1,37 @@
+body{margin:0;background:#0f172a;color:white;font-family:sans-serif;overflow-x:hidden}
+
+/* LOADING */
+#loading{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;background:black}
+.spinner{width:45px;height:45px;border:5px solid gray;border-top:5px solid cyan;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+
+/* LOGIN */
+#login{display:none;height:100vh;align-items:center;justify-content:center}
+.loginBox{background:#020617;padding:25px;border-radius:12px;width:85%;max-width:300px;text-align:center}
+.loginBox span{color:cyan;font-weight:bold}
+.loginBox input{width:100%;padding:10px;margin-top:12px;background:black;color:white;border:none}
+.loginBox button{width:100%;padding:10px;margin-top:10px;background:cyan;border:none}
+.copy{font-size:12px;margin-top:10px}
+
+/* APP */
+#app{display:none}
+header{text-align:center;padding:10px;background:#020617;position:relative}
+header span{color:cyan}
+.lock{position:absolute;right:10px;top:10px;background:none;color:white;border:none}
+
+/* MENU */
+.menu{display:flex}
+.menu button{flex:1;padding:10px;background:#1e293b;border:none;color:white}
+
+/* PAGE */
+.page{display:none;padding:12px}
+.page.active{display:block}
+
+/* CALC */
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+button{border:none;border-radius:6px;padding:12px}
+.num{background:#334155}
+.op{background:gold;color:black}
+.eq{background:green}
+input{width:100%;padding:10px;margin-bottom:10px;background:black;color:white;border:none}
+footer{text-align:center;font-size:12px;margin:10px}
