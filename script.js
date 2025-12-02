@@ -1,76 +1,104 @@
-body{
-  margin:0;
-  font-family:sans-serif;
-  background:#0a0a0a;
-  color:#fff;
-  overflow-x:hidden;
-}
+const PASS = "abdullah-mafia-1880";
 
-.hidden{display:none;}
+/* ========== LOADING CONTROL ========== */
+document.addEventListener("DOMContentLoaded", () => {
 
-#loading{
-  position:fixed; inset:0;
-  background:#000;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
+setTimeout(() => {
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("loginPage").classList.remove("hidden");
+}, 3000);
 
-.loader{
-  border:6px solid #222;
-  border-top:6px solid cyan;
-  width:60px;height:60px;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
+/* ========== LOGIN ========== */
+window.login = function(){
+  let p = document.getElementById("password").value;
+  if (p === PASS) {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+  } else {
+    document.getElementById("error").innerText = "Wrong Password!";
+  }
+};
 
-@keyframes spin{to{transform:rotate(360deg)}}
+window.logout = function(){
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+};
 
-#loginPage{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
+/* ========== SECTION SWITCH ========== */
+window.showCalc = function(id){
+  document.querySelectorAll(".calc").forEach(c => c.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+};
 
-.dev span{color:cyan;font-weight:bold;}
-footer{margin-top:20px;color:#999;}
+/* ========== NORMAL CALCULATOR ========== */
+let display = document.getElementById("display");
 
-header{
-  text-align:center;
-}
-header span{color:cyan;}
-nav{
-  display:flex;
-  justify-content:space-around;
-  margin:10px 0;
-}
-nav button{padding:5px;}
+window.press = function(v){
+  display.value += v;
+};
 
-.calc{
-  padding:10px;
-}
+window.clearDisplay = function(){
+  display.value = "";
+};
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:5px;
-}
+window.calc = function(){
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = "Error";
+  }
+};
 
-.num{background:#333;}
-.op{background:gold;}
-.eq{background:green;}
+/* ========== SCIENTIFIC ========== */
+let sciDisplay = document.getElementById("sciDisplay");
 
-button{
-  padding:15px;
-  border:none;
-  color:white;
-}
+window.sci = function(op){
+  if (op === "pi") sciDisplay.value += Math.PI;
+  else if (op === "e") sciDisplay.value += Math.E;
+  else if (op === "pow") sciDisplay.value += "Math.pow(";
+  else sciDisplay.value += "Math."+op+"(";
+};
 
-input{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-}
+window.calcSci = function(){
+  try {
+    sciDisplay.value = eval(sciDisplay.value);
+  } catch {
+    sciDisplay.value = "Error";
+  }
+};
+
+window.clearSci = function(){
+  sciDisplay.value = "";
+};
+
+/* ========== AGE ========== */
+window.calcAge = function(){
+  let dob = document.getElementById("dob").value.split("-");
+  let birth = new Date(dob[2], dob[1]-1, dob[0]);
+  let today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  let m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  document.getElementById("ageResult").innerText = "Age: " + age + " Years";
+};
+
+/* ========== ZAKAT ========== */
+window.calcZakat = function(){
+  let amount = parseFloat(document.getElementById("money").value);
+  if (isNaN(amount)) {
+    document.getElementById("zakatResult").innerText = "Enter Amount";
+  } else {
+    let zakat = (amount * 2.5) / 100;
+    document.getElementById("zakatResult").innerText = "Zakat: " + zakat;
+  }
+};
+
+/* ========== SUN / MOON BASIC ========== */
+window.sunMoon = function(){
+  let date = new Date(document.getElementById("date").value);
+  let moonAge = (date.getDate() % 29);
+  document.getElementById("sunMoonResult").innerText =
+    `Moon Age: ${moonAge} days\nSunrise: 06:00 AM\nSunset: 06:00 PM`;
+};
+
+});
